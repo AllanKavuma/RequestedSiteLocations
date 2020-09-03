@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r LoadLibraries, echo=FALSE, message=FALSE, warning=FALSE}
+## Site Link https://allankavuma.github.io/RequestedSiteLocations/SiteLocations
 ## Import Libraries
 library(leaflet) ## Creating leaftlet map
 library(xlsx) ## For reading excel file
