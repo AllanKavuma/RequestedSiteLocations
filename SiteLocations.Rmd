@@ -21,7 +21,7 @@ library(dplyr) ## For data manipulation
 
 ```{r LoadData, echo=FALSE, message=FALSE, warning=FALSE}
 ## Read the data
-## Read the site data
+## Read the site dataqqq
 sitedata <- read.xlsx("SitesLocations.xls", sheetName = "UserData")
 #sitedata1 <- read.xlsx("site.locations.xls", sheetName = "Sheet1")
 ```
@@ -45,11 +45,24 @@ siteLocations <- siteLocations[!(siteLocations$ATC.Site.Name == c("Mutara_House"
 ```
 
 
-```{r PlotMap, echo = FALSE, message=FALSE, warning=FALSE}
+```{r PlotMap, echo = FALSE, message=FALSE, warning=FALSE,fig.width=16, fig.height=12}
 ## Plot the map
 ## Plot map according to the regions of the sites
 leaflet(siteLocations) %>% addTiles() %>% addMarkers(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
                                                                                                                               "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
-                            "Eaton SiteID:" = siteLocations$Eaton.Name),                                                                                                  
+                            "Eaton SiteID:" = siteLocations$Eaton.Name, "</br>",
+                            "Sub Region" = siteLocations$Sub.Region),                                                                                                  
                                                                                                                               clusterOptions = markerClusterOptions())
+
+leaflet(siteLocations) %>% addTiles() %>% addCircles(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, weight = 20, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
+                                                                                                                              "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
+                            "Eaton SiteID:" = siteLocations$Eaton.Name))
+
+
+#leaflet(siteLocations) %>%
+#  addTiles() %>%
+#  addCircles(lat = siteLocations$Latitude, lng = siteLocations$Longitude, weight = 1, 
+#              popup = paste("SiteName:" = siteLocations$Site.name, "</br>",                                                      "SiteID:" = siteLocations$Site.ID  ), 
+#             color = ~pal(Regional.Supervisor), radius = 5000) %>%
+#    addLegend(pal = pal, values = ~siteLocations$Regional.Supervisor, group = "circles", position = "bottomright")
 ```
