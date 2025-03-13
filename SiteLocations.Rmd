@@ -46,9 +46,18 @@ siteLocations <- siteLocations[!(siteLocations$ATC.Site.Name == c("Mutara_House"
 
 
 ```{r PlotMap, echo = FALSE, message=FALSE, warning=FALSE,fig.width=16, fig.height=12}
+# Change Name variable from Factor to character type
+siteLocations$Eaton.Name <- as.factor(siteLocations$Eaton.Name)
+
+# Setting your own colors manually:
+pal <- colorFactor(
+  palette = c("blue", "red", "green"),#, 'green', "yellow", "orange", "black", "purple", "pink", "brown", "grey"),
+  domain = siteLocations$Eaton.Name
+)
+
 ## Plot the map
 ## Plot map according to the regions of the sites
-leaflet(siteLocations) %>% addTiles() %>% addMarkers(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
+leaflet(siteLocations) %>% addTiles() %>% addMarkers( lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
                                                                                                                               "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
                             "Eaton SiteID:" = siteLocations$Eaton.Name, "</br>",
                             "Sub Region" = siteLocations$Sub.Region),                                                                                                  
@@ -56,7 +65,8 @@ leaflet(siteLocations) %>% addTiles() %>% addMarkers(lat = siteLocations$LATITUD
 
 leaflet(siteLocations) %>% addTiles() %>% addCircles(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, weight = 20, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
                                                                                                                               "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
-                            "Eaton SiteID:" = siteLocations$Eaton.Name))
+                            "Eaton SiteID:" = siteLocations$Eaton.Name),
+                            color = ~pal(Eaton.Name) )
 
 
 #leaflet(siteLocations) %>%
