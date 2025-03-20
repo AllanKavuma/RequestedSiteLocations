@@ -65,7 +65,8 @@ leaflet(siteLocations) %>% addTiles() %>% addMarkers( lat = siteLocations$LATITU
 
 leaflet(siteLocations) %>% addTiles() %>% addCircles(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, weight = 20, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
                                                                                                                               "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
-                            "Eaton SiteID:" = siteLocations$Eaton.Name),
+                            "Eaton SiteID:" = siteLocations$Eaton.Name, "</br>",
+                            "Sub Region" = siteLocations$Sub.Region),
                             color = ~pal(Eaton.Name) )
 
 
@@ -75,4 +76,28 @@ leaflet(siteLocations) %>% addTiles() %>% addCircles(lat = siteLocations$LATITUD
 #              popup = paste("SiteName:" = siteLocations$Site.name, "</br>",                                                      "SiteID:" = siteLocations$Site.ID  ), 
 #             color = ~pal(Regional.Supervisor), radius = 5000) %>%
 #    addLegend(pal = pal, values = ~siteLocations$Regional.Supervisor, group = "circles", position = "bottomright")
+```
+
+
+```{r PlotMap2, echo = FALSE, message=FALSE, warning=FALSE,fig.width=16, fig.height=12}
+# Change Name variable from Factor to character type
+siteLocations$Sub.Region <- as.factor(siteLocations$Sub.Region)
+
+# Setting your own colors manually:
+pal <- colorFactor(
+  palette = c("blue", "red", "green"),#, 'green', "yellow", "orange", "black", "purple", "pink", "brown", "grey"),
+  domain = siteLocations$Sub.Region
+)
+
+## Plot the map
+## Plot map according to the regions of the sites
+
+
+leaflet(siteLocations) %>% addTiles() %>% addCircles(lat = siteLocations$LATITUDE.DECIMAL, lng = siteLocations$LONGITUDE.DECIMAL, weight = 20, popup = paste("SiteName:" = siteLocations$ATC.Site.Name, "</br>",
+                                                                                                                              "ATC SiteID:" = siteLocations$ATC.Number, "</br>",
+                            "Eaton SiteID:" = siteLocations$Eaton.Name, "</br>",
+                            "Sub Region" = siteLocations$Sub.Region),
+                            color = ~pal(Sub.Region) )
+
+
 ```
