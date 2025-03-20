@@ -51,7 +51,7 @@ siteLocations$Eaton.Name <- as.factor(siteLocations$Eaton.Name)
 
 # Setting your own colors manually:
 pal <- colorFactor(
-  palette = c("blue", "red", "green"),#, 'green', "yellow", "orange", "black", "purple", "pink", "brown", "grey"),
+  palette = c("blue", "red"),#, 'green', "yellow", "orange", "black", "purple", "pink", "brown", "grey"),
   domain = siteLocations$Eaton.Name
 )
 
